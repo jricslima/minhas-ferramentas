@@ -1,24 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<link rel="shortcut icon" href="engrenagem.png" type="image/png">
+    <link rel="shortcut icon" href="engrenagem.png" type="image/png">
     <meta charset="UTF-8">
     <title>Minhas Ferramentas</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #2c3e50; padding: 40px; color: white; }
-        h2 { text-align: center; margin-bottom: 30px; }
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
-            gap: 20px; 
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .card { 
-            background: #ffffff; padding: 20px; border-radius: 15px; 
-            text-align: center; cursor: pointer; transition: 0.3s;
-            color: #333; box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        }
+#btnTopo {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: none; /* Escondido por padrão */
+    background-color: #f1c40f;
+    color: #2c3e50;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    transition: 0.3s;
+}
+
+#btnTopo:hover { background-color: #d4ac0d; transform: scale(1.1); }
+.highlight {
+    background-color: #f1c40f; /* O mesmo amarelo dos seus títulos */
+    color: #2c3e50; /* A cor escura do seu fundo para dar contraste */
+    border-radius: 4px;
+    padding: 0 2px;
+}
+        body { font-family: 'Segoe UI', sans-serif; background: #2c3e50; padding: 40px 40px 120px 40px; color: white; }
+        h1, h2 { text-align: center; color: #f1c40f; }
+        #filtro { display: block; margin: 20px auto; padding: 12px; width: 80%; max-width: 400px; border-radius: 20px; border: none; text-align: center; outline: none; font-size: 16px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 20px; max-width: 900px; margin: 0 auto 40px auto; }
+        .card { background: #ffffff; padding: 20px; border-radius: 15px; text-align: center; cursor: pointer; transition: 0.3s; color: #333; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
         .card:hover { transform: scale(1.05); background: #ecf0f1; }
         .card img { width: 64px; height: 64px; margin-bottom: 10px; }
         .card div { font-weight: 600; font-size: 0.9em; }
@@ -26,29 +41,104 @@
 </head>
 <body>
 
-    <h2>Minhas Ferramentas</h2>
-    <div class="grid">
-        <div class="card" onclick="window.open('https://anydownloader.com/pt/')"><img src="anydownloader.png"><div>AnyDownloader</div></div>
-        <div class="card" onclick="window.open('https://baixarfavicon.com.br/')"><img src="baixarfavicon.png"><div>BaixarFavicon</div></div>
-        <div class="card" onclick="window.open('https://circlecropimage.com/pt')"><img src="circle-crop-imagem_cortada_circular.png"><div>Circle Crop</div></div>
-        <div class="card" onclick="window.open('https://www.clipto.com/pt/')"><img src="cliptoai.png"><div>Clipto.AI</div></div>
-        <div class="card" onclick="window.open('https://downsub.com/')"><img src="downsub.png"><div>DownSub</div></div>
-        <div class="card" onclick="window.open('https://fdownloader.net/pt')"><img src="fdownloader.net.png"><div>FDownloader</div></div>
-        <div class="card" onclick="window.open('https://www.fotoefeitos.com/')"><img src="fotoefeitos.png"><div>Foto Efeitos</div></div>
-        <div class="card" onclick="window.open('https://www.fotor.com/')"><img src="fotor.png"><div>Fotor</div></div>
-        <div class="card" onclick="window.open('https://www.iloveimg.com/pt')"><img src="iloveimg.png"><div>ILoveIMG</div></div>
-        <div class="card" onclick="window.open('https://www.ilovepdf.com/pt')"><img src="ilovepdf.png"><div>ILovePDF</div></div>
-        <div class="card" onclick="window.open('https://tools.pdf24.org/pt/ocr-pdf')"><img src="pdf24tools.png"><div>PDF24 Tools</div></div>
-        <div class="card" onclick="window.open('https://www.remove.bg/pt-br')"><img src="removebg.png"><div>Remove BG</div></div>
-        <div class="card" onclick="window.open('https://savefrom.in.net/pt8/')"><img src="savefrom.png"><div>SaveFrom</div></div>
-        <div class="card" onclick="window.open('https://steptodown.com/')"><img src="steptodown.png"><div>Steptodown</div></div>
-        <div class="card" onclick="window.open('https://www.nikse.dk/subtitleedit/online')"><img src="subtitleditonline.png"><div>Subtitle Edit</div></div>
-        <div class="card" onclick="window.open('https://turboscribe.ai/pt/')"><img src="turboscrib.png"><div>TurboScribe</div></div>
-        <div class="card" onclick="window.open('https://upscayl.org/')"><img src="upscayl.png"><div>Upscayl</div></div>
-        <div class="card" onclick="window.open('https://videotranscriber.ai/pt')"><img src="videotranscriber.png"><div>Video Transcriber</div></div>
-        <div class="card" onclick="window.open('https://vidomon.com/')"><img src="vidomon.png"><div>Vidomon</div></div>
-        <div class="card" onclick="window.open('https://y2meta.is/pt89/')"><img src="y2meta.png"><div>Y2meta</div></div>
-    </div>
+    <h1>Minhas Ferramentas</h1>
+    <input type="text" id="filtro" placeholder="🔍 Buscar ferramentas...">
+<p id="mensagemVazio" style="display:none; text-align:center; color: #f1c40f; margin-top: 20px;">
+    Ops, nenhuma ferramenta encontrada com este termo!
+</p>
 
+    <section class="secao">
+        <h2>Vídeo e Áudio</h2>
+        <div class="grid">
+            <div class="card" onclick="window.open('https://anydownloader.com/pt/')"><img src="anydownloader.png"><div>AnyDownloader</div></div>
+            <div class="card" onclick="window.open('https://downsub.com/')"><img src="downsub.png"><div>DownSub</div></div>
+            <div class="card" onclick="window.open('https://fdownloader.net/pt')"><img src="fdownloader.net.png"><div>FDownloader</div></div>
+            <div class="card" onclick="window.open('https://savefrom.in.net/pt8/')"><img src="savefrom.png"><div>SaveFrom</div></div>
+            <div class="card" onclick="window.open('https://steptodown.com/')"><img src="steptodown.png"><div>Steptodown</div></div>
+            <div class="card" onclick="window.open('https://www.nikse.dk/subtitleedit/online')"><img src="subtitleditonline.png"><div>Subtitle Edit</div></div>
+            <div class="card" onclick="window.open('https://turboscribe.ai/pt/')"><img src="turboscrib.png"><div>TurboScribe</div></div>
+            <div class="card" onclick="window.open('https://videotranscriber.ai/pt')"><img src="videotranscriber.png"><div>Video Transcriber</div></div>
+            <div class="card" onclick="window.open('https://vidomon.com/')"><img src="vidomon.png"><div>Vidomon</div></div>
+            <div class="card" onclick="window.open('https://y2meta.is/pt89/')"><img src="y2meta.png"><div>Y2meta</div></div>
+        </div>
+    </section>
+
+    <section class="secao">
+        <h2>Imagens e Fotos</h2>
+        <div class="grid">
+            <div class="card" onclick="window.open('https://baixarfavicon.com.br/')"><img src="baixarfavicon.png"><div>BaixarFavicon</div></div>
+            <div class="card" onclick="window.open('https://circlecropimage.com/pt')"><img src="circle-crop-imagem_cortada_circular.png"><div>Circle Crop</div></div>
+            <div class="card" onclick="window.open('https://www.clipto.com/pt/')"><img src="cliptoai.png"><div>Clipto.AI</div></div>
+            <div class="card" onclick="window.open('https://www.fotoefeitos.com/')"><img src="fotoefeitos.png"><div>Foto Efeitos</div></div>
+            <div class="card" onclick="window.open('https://www.fotor.com/')"><img src="fotor.png"><div>Fotor</div></div>
+            <div class="card" onclick="window.open('https://www.iloveimg.com/pt')"><img src="iloveimg.png"><div>ILoveIMG</div></div>
+            <div class="card" onclick="window.open('https://www.remove.bg/pt-br')"><img src="removebg.png"><div>Remove BG</div></div>
+            <div class="card" onclick="window.open('https://upscayl.org/')"><img src="upscayl.png"><div>Upscayl</div></div>
+        </div>
+    </section>
+
+    <section class="secao">
+        <h2>Documentos e PDF</h2>
+        <div class="grid">
+            <div class="card" onclick="window.open('https://www.ilovepdf.com/pt')"><img src="ilovepdf.png"><div>ILovePDF</div></div>
+            <div class="card" onclick="window.open('https://tools.pdf24.org/pt/ocr-pdf')"><img src="pdf24tools.png"><div>PDF24 Tools</div></div>
+        </div>
+    </section>
+
+<script>
+// Lógica de busca e destaque
+document.getElementById('filtro').addEventListener('input', function() {
+    let termoOriginal = this.value;
+    let termo = termoOriginal.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
+    let secoes = document.querySelectorAll('.secao');
+    let aviso = document.getElementById('mensagemVazio');
+    let encontrouAlgumaCoisaNoTotal = false;
+
+    secoes.forEach(secao => {
+        let tituloOriginal = secao.querySelector('h2').innerText;
+        let tituloSemAcento = tituloOriginal.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
+        let cards = secao.querySelectorAll('.card');
+        let termoNoTitulo = tituloSemAcento.includes(termo);
+        let encontrouNestaSecao = false;
+
+        cards.forEach(card => {
+            let nomeDiv = card.querySelector('div');
+            let nomeOriginal = nomeDiv.innerText;
+            let nomeSemAcento = nomeOriginal.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
+            
+            if (termoNoTitulo || nomeSemAcento.includes(termo)) {
+                card.style.display = "";
+                encontrouNestaSecao = true;
+                encontrouAlgumaCoisaNoTotal = true;
+                
+                if (termoOriginal.length > 0 && nomeSemAcento.includes(termo)) {
+                    let regex = new RegExp(`(${termoOriginal})`, 'gi');
+                    nomeDiv.innerHTML = nomeOriginal.replace(regex, '<span class="highlight">$1</span>');
+                } else {
+                    nomeDiv.innerHTML = nomeOriginal;
+                }
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+        secao.style.display = encontrouNestaSecao ? "" : "none";
+    });
+
+    aviso.style.display = encontrouAlgumaCoisaNoTotal ? "none" : "block";
+});
+
+// Lógica do botão de voltar ao topo (AQUI ESTAVA O QUE FALTAVA!)
+window.onscroll = function() {
+    let btn = document.getElementById("btnTopo");
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        btn.style.display = "block";
+    } else {
+        btn.style.display = "none";
+    }
+};
+</script><button id="btnTopo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Ir para o topo">
+    ↑
+</button>
 </body>
 </html>
